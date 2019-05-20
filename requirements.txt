@@ -11,3 +11,4 @@ requests-oauthlib==0.6.1
 mysql-python
 ipython
 djangorestframework
+django-crispy-forms

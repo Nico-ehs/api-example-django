@@ -40,7 +40,9 @@ INSTALLED_APPS = (
     'drchrono',
     'social_django',
     'rest_framework',
+    'crispy_forms',
 )
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',

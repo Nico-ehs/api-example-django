@@ -1,8 +1,35 @@
 from django.shortcuts import redirect
+from django.shortcuts import render
 from django.views.generic import TemplateView
+
 from social_django.models import UserSocialAuth
 
 from drchrono.endpoints import DoctorEndpoint
+from drchrono.forms import CheckinForm
+# from drchrono.forms import ContactForm
+from .models import Appointment, AppointmentApi
+
+import datetime
+import requests
+
+
+
+class CheckinView(TemplateView):
+    form = CheckinForm()
+    template_name ='check_in.html',
+
+
+class CheckinConformView(TemplateView):
+    # api=AppointmentApi()
+    # paitent_data = api.get_patient_info(self.args[appointment_id])
+    # form = PatientDataForm()
+    template_name = 'patient_data.html',
+
+
+class TodayView(TemplateView):
+    api=AppointmentApi()
+    appointments = api.appointments_today()
+    template_name = 'today.html'
 
 
 class SetupView(TemplateView):
@@ -16,6 +43,10 @@ class DoctorWelcome(TemplateView):
     """
     The doctor can see what appointments they have today.
     """
+    # api=AppointmentApi()
+    # appointments = api.appointments_today()
+    # print(appointments)
+    # template_name = 'today.html',
     template_name = 'doctor_welcome.html'
 
     def get_token(self):
@@ -46,4 +77,3 @@ class DoctorWelcome(TemplateView):
         doctor_details = self.make_api_request()
         kwargs['doctor'] = doctor_details
         return kwargs
-
